@@ -1,0 +1,32 @@
+{
+  "host": "localhost",
+  "port": 3030,
+  "public": "../public/",
+  "nedb": "../data",
+  "debug": true,
+  "paginate": {
+    "default": 10,
+    "max": 50
+  },
+  "authentication": {
+    "header": "Authorization",
+    "passReqToCallback": true,
+    "secret": "SOME SECRET",
+    "strategies": ["jwt", "local"],
+    "path": "/authentication",
+    "service": "users",
+    "jwt": {
+      "header": { "typ": "access" },
+      "issuer": "feathers",
+      "algorithm": "HS256",
+      "expiresIn": "1d"
+    },
+    "cookie": {
+      "enabled": true,
+      "name": "feathers-jwt",
+      "httpOnly": false,
+      "secure": true
+    },
+    "local": {}
+  }
+}

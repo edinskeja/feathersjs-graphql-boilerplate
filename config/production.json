@@ -1,0 +1,12 @@
+{
+  "host": "api.example.com",
+  "port": 80,
+  "nedb": "../data",
+  "public": "../public/",
+  "auth": {
+    "token": {
+      "secret": "SOME SECRET"
+    },
+    "local": {}
+  }
+}
