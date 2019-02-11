@@ -1,6 +1,9 @@
-# Feathersjs Graphql Boilerplate
-
-A super simple boilerplate with authentication and subscriptions using [Apollo Server](https://www.apollographql.com/docs/apollo-server/) and [Feathersjs](http://feathersjs.com/) server.
+<h1 align="center">FeathersJS Graphql Boilerplate</h1>
+<p align="center">
+  <a href="https://david-dm.org/EdinSkeja/feathersjs-graphql-boilerplate"><img src="https://david-dm.org/EdinSkeja/feathersjs-graphql-boilerplate.svg" alt="Dependency status"></a>
+  <a href="https://github.com/EdinSkeja/feathersjs-graphql-boilerplate/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License"></a>
+</p>
+<p align="center">A super simple boilerplate with authentication and subscriptions using <a href="https://www.apollographql.com/docs/apollo-server/" alt="Apollo Server">Apollo Server</a> and <a href="http://feathersjs.com/" alt="FeathersJS">FeathersJS</a></p>
 
 # Install & Run
 
