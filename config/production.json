@@ -3,7 +3,7 @@
   "port": 80,
   "nedb": "../data",
   "public": "../public/",
-  "auth": {
+  "authentication": {
     "token": {
       "secret": "SOME SECRET"
     },

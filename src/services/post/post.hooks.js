@@ -1,12 +1,13 @@
-import auth from "@feathersjs/authentication";
-import {
-  restrictToOwner,
-  associateCurrentUser
-} from "feathers-authentication-hooks";
+import { authenticate } from "@feathersjs/authentication";
+import { setField } from "feathers-authentication-hooks";
 
 const restrict = [
-  auth.hooks.authenticate("jwt"),
-  restrictToOwner({ ownerField: "userId" })
+  authenticate("jwt"),
+  setField({
+    from: "params.userId",
+    as: "userId",
+  }),
+  // restrictToOwner({ ownerField: "userId" }),
 ];
 
 module.exports = {
@@ -14,10 +15,16 @@ module.exports = {
     all: [],
     find: [...restrict],
     get: [],
-    create: [auth.hooks.authenticate("jwt"), associateCurrentUser()],
+    create: [
+      authenticate("jwt"),
+      setField({
+        from: "params.userId",
+        as: "userId",
+      }),
+    ],
     update: [...restrict],
     patch: [...restrict],
-    remove: [...restrict]
+    remove: [...restrict],
   },
   after: {
     all: [],
@@ -26,7 +33,7 @@ module.exports = {
     create: [],
     update: [],
     patch: [],
-    remove: []
+    remove: [],
   },
   error: {
     all: [],
@@ -35,6 +42,6 @@ module.exports = {
     create: [],
     update: [],
     patch: [],
-    remove: []
-  }
+    remove: [],
+  },
 };

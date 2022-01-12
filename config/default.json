@@ -11,11 +11,12 @@
   "authentication": {
     "header": "Authorization",
     "passReqToCallback": true,
-    "secret": "SOME SECRET",
-    "strategies": ["jwt", "local"],
+    "secret": "SOME_SECRET",
     "path": "/authentication",
     "service": "users",
-    "jwt": {
+    "entity": "user",
+    "authStrategies": ["jwt", "local"],
+    "jwtOptions": {
       "header": { "typ": "access" },
       "issuer": "feathers",
       "algorithm": "HS256",
@@ -27,6 +28,9 @@
       "httpOnly": false,
       "secure": true
     },
-    "local": {}
+    "local": {
+      "usernameField": "email",
+      "passwordField": "password"
+    }
   }
 }

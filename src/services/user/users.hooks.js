@@ -1,47 +1,53 @@
-import auth from "@feathersjs/authentication";
-import { restrictToOwner } from "feathers-authentication-hooks";
 import checkPermissions from "feathers-permissions";
+import { authenticate } from "@feathersjs/authentication";
+import { hooks } from "@feathersjs/authentication-local";
+import { setField } from "feathers-authentication-hooks";
 import { iff } from "feathers-hooks-common";
 
-import local from "@feathersjs/authentication-local";
-
 const restrict = [
-  auth.hooks.authenticate(["jwt"]),
-  restrictToOwner({ ownerField: "_id" })
+  authenticate("jwt"),
+  setField({
+    from: "_id",
+    as: "_id",
+  }),
+  // restrictToOwner({ ownerField: "_id" }),
 ];
 
 module.exports = {
   before: {
     all: [],
     find: [
-      auth.hooks.authenticate("jwt"),
+      authenticate("jwt"),
       checkPermissions({
         roles: ["super_admin", "admin"],
         field: "role",
-        error: false
+        error: false,
       }),
       iff(
-        context => !context.params.permitted,
-        restrictToOwner({ ownerField: "_id" }),
-        context => {
+        (context) => !context.params.permitted,
+        setField({
+          from: "_id",
+          as: "_id",
+        }),
+        (context) => {
           Promise.resolve(context);
         }
-      )
+      ),
     ],
     get: [...restrict],
-    create: [local.hooks.hashPassword()],
+    create: [hooks.hashPassword("password")],
     update: [...restrict],
     patch: [...restrict],
-    remove: [...restrict]
+    remove: [...restrict],
   },
   after: {
-    all: [local.hooks.protect("password")],
+    all: [hooks.protect("password")],
     find: [],
     get: [],
     create: [],
     update: [],
     patch: [],
-    remove: []
+    remove: [],
   },
   error: {
     all: [],
@@ -50,6 +56,6 @@ module.exports = {
     create: [],
     update: [],
     patch: [],
-    remove: []
-  }
+    remove: [],
+  },
 };
